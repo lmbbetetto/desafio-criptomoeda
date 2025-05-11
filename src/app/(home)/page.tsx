@@ -18,7 +18,7 @@ import { CryptoService } from "@/services/cripto-service";
 import { ConversionHistoryTable } from "./components/conversation-history";
 import { Favorites } from "./components/favorites";
 
-export default function CryptoConverterWithHistory() {
+export default function CryptoConverter() {
   const [selected, setSelected] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const { data, isLoading } = useCoinsContext();
@@ -140,10 +140,10 @@ export default function CryptoConverterWithHistory() {
   }, [data, filterHighMarketCap, fetchConversionHistory, fetchFavorites]);
 
   return (
-    <main className="min-h-screen bg-gray-100 p-6">
+    <main className="min-h-screen bg-gray-100 p-4 md:p-6">
       <div className="max-w-6xl mx-auto space-y-8">
-        <div className="bg-white p-6 rounded-[0.9rem] shadow-md space-y-4">
-          <h1 className="text-xl font-bold text-black">Conversão</h1>
+        <div className="bg-white p-4 md:p-6 rounded-[0.9rem] shadow-md space-y-4">
+          <h1 className="text-lg md:text-xl font-bold text-black">Conversão</h1>
           {isLoading ? (
             <div className="flex justify-center items-center">
               <span>Carregando criptomoedas...</span>
@@ -158,7 +158,7 @@ export default function CryptoConverterWithHistory() {
                 toggleFavorite={toggleFavorite}
               />
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col space-y-1">
                   <label className="text-sm font-medium text-black">
                     Criptomoeda
@@ -205,7 +205,6 @@ export default function CryptoConverterWithHistory() {
                                   setSelectedCoin(coin);
                                   setSelected(coin.symbol);
                                   setOpen(false);
-                                  console.log(coin.id);
                                 }}
                               >
                                 <Image

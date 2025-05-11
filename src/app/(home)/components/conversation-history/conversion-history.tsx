@@ -13,8 +13,8 @@ export function ConversionHistoryTable({
       <h2 className="text-lg font-semibold text-black mb-4">
         Histórico de Conversões
       </h2>
-      <div className="overflow-auto">
-        <table className="w-full text-sm text-left">
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-left">
           <thead className="bg-gray-200 text-gray-700 text-[1rem]">
             <tr>
               <th className="p-2">Data</th>

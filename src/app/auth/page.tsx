@@ -46,8 +46,8 @@ export default function SignIn() {
   };
 
   return (
-    <div className="p-8">
-      <div className="w-[350px] flex flex-col justify-center gap-6">
+    <div className="p-8 flex justify-center items-center min-h-screen">
+      <div className="w-full max-w-md flex flex-col justify-center gap-6">
         <div className="flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-black">
             Acessar sistema

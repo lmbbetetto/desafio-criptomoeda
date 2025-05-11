@@ -12,13 +12,13 @@ export function Favorites({
   if (favorites.length === 0) return null;
 
   return (
-    <div>
+    <div className="px-4 py-6 sm:px-6 lg:px-8">
       <h2 className="text-md font-semibold text-black mb-4">Favoritos</h2>
-      <div className="flex space-x-4 mb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {favorites.map((coin) => (
           <div
             key={coin.createdAt}
-            className="flex items-center gap-2 p-2 bg-gray-100 rounded-lg text-black"
+            className="flex items-center gap-2 p-2 bg-gray-100 rounded-lg text-black cursor-pointer hover:bg-gray-200 transition-colors"
             onClick={() => {
               setSelectedCoin({
                 id: coin.coinId,
@@ -33,10 +33,11 @@ export function Favorites({
             <Image
               src={coin.coinImage}
               alt={coin.coinName}
-              width={20}
-              height={20}
+              width={24}
+              height={24}
+              className="rounded-full"
             />
-            <span>
+            <span className="truncate">
               {coin.coinName} ({coin.coinSymbol.toUpperCase()})
             </span>
             <AiFillStar
