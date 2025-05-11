@@ -29,6 +29,10 @@ export default function CryptoConverter() {
   const [favorites, setFavorites] = useState<CoinBD[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState<Coin | null>(null);
+  const [resultBRL, setResultBRL] = useState<number>(0);
+  const [resultUSD, setResultUSD] = useState<number>(0);
+  const [coin, setCoin] = useState<Coin | null>(null);
+  const [quantidade, setQuantidade] = useState<number>(0);
 
   const usdToBrlRate = 5.0;
 
@@ -50,6 +54,11 @@ export default function CryptoConverter() {
     const amountNum = parseFloat(amount);
     const resultUSD = amountNum * coinPriceUSD;
     const resultBRL = resultUSD * usdToBrlRate;
+
+    setResultBRL(resultBRL);
+    setResultUSD(resultUSD);
+    setCoin(selectedCoin);
+    setQuantidade(amountNum);
 
     const newEntry: ConversionHistory = {
       id: crypto.randomUUID(),
@@ -263,6 +272,39 @@ export default function CryptoConverter() {
               >
                 Converter
               </button>
+              {resultBRL > 0 ? (
+                <div className="flex flex-col items-center p-4 md:p-6 rounded-[0.9rem]">
+                  <h2 className="text-md md:text-lg font-semibold text-black mb-4">
+                    Última conversão
+                  </h2>
+
+                  <div className="flex flex-col items-center gap-2">
+                    <p className="text-black font-medium text-center">
+                      {coin?.name} ({coin?.symbol.toUpperCase()})
+                    </p>
+                    <p className="text-black font-medium text-center">
+                      {quantidade}
+                    </p>
+
+                    <div className="flex flex-col md:flex-row items-center gap-4 font-semibold">
+                      <p className="bg-green-700 text-white w-[15rem] h-12 rounded-[0.9rem] p-2 flex items-center justify-center">
+                        Valor (USD): ${" "}
+                        {resultUSD.toLocaleString("en-US", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
+                      <p className="bg-green-700 text-white w-[15rem] h-12 rounded-[0.9rem] p-2 flex items-center justify-center">
+                        Valor (BRL): R${" "}
+                        {resultBRL.toLocaleString("pt-BR", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </>
           )}
         </div>
