@@ -12,7 +12,7 @@ export function Favorites({
   if (favorites.length === 0) return null;
 
   return (
-    <div className="px-4 py-6 sm:px-6 lg:px-8">
+    <div className="px-0 py-6 sm:px-6 lg:px-0">
       <h2 className="text-md font-semibold text-black mb-4">Favoritos</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {favorites.map((coin) => (

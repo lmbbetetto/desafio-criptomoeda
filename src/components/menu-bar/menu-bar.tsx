@@ -37,7 +37,7 @@ export function MenuBar() {
         <div>
           <UserItem />
         </div>
-        <div className="grow text-black mt-[10rem]">
+        <div className="grow text-black">
           <section className="flex flex-col gap-2 mt-2 mb-6">
             <Link href="/">
               <p className="flex gap-2 items-center text-sm hover:cursor-pointer hover:bg-muted p-1 rounded-sm">
