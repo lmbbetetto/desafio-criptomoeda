@@ -4,13 +4,15 @@ import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 type FormData = {
   email: string;
   password: string;
+  name: string;
 };
 
-export default function SignIn() {
+export default function SignUp() {
   const {
     register,
     handleSubmit,
@@ -23,25 +25,24 @@ export default function SignIn() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("/api/sign-up", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        const result = await response.json();
-        console.error("Erro no login:", result);
-        setErrorMessage(result.error || "Erro ao fazer login");
+        console.error("Erro no cadastro:", result);
+        setErrorMessage(result.error || "Erro ao cadastrar");
         return;
       }
-
-      const result = await response.json();
-      localStorage.setItem("token", result.token);
-      router.push("/");
+      toast.success("Cadastro realizado com sucesso!");
+      router.push("/auth");
     } catch (error) {
       console.error("Erro interno:", error);
-      setErrorMessage("Erro interno ao tentar fazer login.");
+      setErrorMessage("Erro interno ao tentar cadastrar.");
     }
   };
 
@@ -50,14 +51,29 @@ export default function SignIn() {
       <div className="w-full max-w-md flex flex-col justify-center gap-6">
         <div className="flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-black">
-            Acessar sistema
+            Cadastro
           </h1>
           <p className="text-sm text-muted-foreground text-black">
-            Acesso ao sistema de conversão
+            Cadastre-se no sistema de conversão
           </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-black">
+              Nome
+            </Label>
+            <input
+              id="name"
+              type="text"
+              {...register("name", { required: "Nome é obrigatório" })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="email" className="text-black">
               E-mail
@@ -97,17 +113,15 @@ export default function SignIn() {
             disabled={isSubmitting}
             className="w-full bg-green-700 text-white py-2 rounded-md hover:bg-green-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSubmitting ? "Entrando..." : "Acessar Sistema"}
+            {isSubmitting ? "Cadastrando..." : "Cadastrar"}
           </button>
         </form>
-        <div className="text-center">
-          <p className="text-gray-500">Ainda não tem cadastro?</p>
-        </div>
+
         <button
-          onClick={() => router.push("/sign-up")}
-          className="w-full bg-red-800 text-white py-2 rounded-md hover:bg-red-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={() => router.push("/auth")}
+          className="w-full bg-red-800 text-white py-2 rounded-md hover:bg-red-900 transition-colors"
         >
-          Cadastrar-se
+          Cancelar
         </button>
       </div>
     </div>
