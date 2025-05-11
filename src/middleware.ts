@@ -30,13 +30,13 @@ export async function middleware(req: NextRequest) {
     req.headers.get("Authorization")?.split(" ")[1];
 
   if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/auth", req.url));
   }
 
   const user = await verifyToken(token);
 
   if (!user) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/auth", req.url));
   }
 
   const userId = user.id;
