@@ -48,5 +48,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  atcher: ["/", "/api/conversion", "/api/favorites"],
+  matcher: ["/", "/api/conversion", "/api/favorites"],
 };
